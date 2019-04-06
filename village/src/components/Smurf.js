@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { Component } from "react";
 
-const Smurf = props => {
-  return (
-    <div className="Smurf">
-      <h3>{props.name}</h3>
-      <strong>{props.height} tall</strong>
-      <p>{props.age} smurf years old</p>
-    </div>
-  );
-};
+import Smurf from "./Smurf";
+
+class Smurfs extends Component {
+  render() {
+    return (
+      <div className="Smurfs">
+        <h1>Smurf Village</h1>
+        <ul>
+          {this.props.smurfs.map(smurf => {
+            return (
+              <Smurf
+                name={smurf.name}
+                id={smurf.id}
+                age={smurf.age}
+                height={smurf.height}
+                key={smurf.id}
+                deleteSmurf={this.props.deleteSmurf}
+              />
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
+}
 
 Smurf.defaultProps = {
-  name: '',
-  height: '',
-  age: ''
+  smurfs: []
 };
 
-export default Smurf;
-
+export default Smurfs;
