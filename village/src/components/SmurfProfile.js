@@ -1,41 +1,46 @@
-import React from "react";
-// import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import axios from "axios";
 
-// ---------------------------------
+class SmurfProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      thisSmurf: {}
+    };
+  }
 
-//Note: I was trying to set up the Router Stretch problem (early on, which was a mistake) but I was having trouble with the async API calls -- at least I think that's what was the issue.
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    this.getSingleSmurf(id);
+  }
 
-class SmurfProfile extends React.Component {
-  // constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //         thisSmurf: {}
-  //     }
-  // }
-
-  // componentDidMount() {
-  //     console.log(this.props)
-  //     const singleSmurf = this.props.smurfs.find(smurf => this.props.match.params.id === `${smurf.id}`);
-
-  //     console.log(singleSmurf);
-  //     this.setState({
-  //         thisSmurf: singleSmurf
-  //     })
-  // }
+  getSingleSmurf = id => {
+    axios
+      .get(`${this.props.serverURL}`)
+      .then(res => {
+        this.setState({
+          thisSmurf: res.data.find(item => `${item.id}` === id)
+        });
+      })
+      .catch(err => console.log(err));
+  };
 
   render() {
-    // console.log(this.state.thisSmurf);
-    console.log(this.props.smurf.id);
+    if (!this.state.thisSmurf) {
+      return <p>Getting information</p>;
+    }
     return (
       <div>
-        {/* <p>{this.state.thisSmurf.name}</p> */}
-        <p>{this.props.smurf.age} smurf years old</p>
-        <p>{this.props.smurf.height} tall</p>
-        <button onClick={e => this.props.deleteSmurf(e, this.props.smurf.id)}>
+        <h2>{this.state.thisSmurf.name}</h2>
+        <p>{this.state.thisSmurf.age} smurf years old</p>
+        <p>{this.state.thisSmurf.height} tall</p>
+        <button
+          onClick={e => this.props.deleteSmurf(e, this.state.thisSmurf.id)}
+        >
           Delete
         </button>
         <button
-          onClick={e => this.props.showUpdateForm(e, this.props.smurf.id)}
+          onClick={e => this.props.showUpdateForm(e, this.state.thisSmurf.id)}
         >
           Update
         </button>

@@ -1,45 +1,6 @@
 import React, { Component } from "react";
-// import axios from 'axios';
-
-// ---------------------------------
-
-// Note: I was attempting to keep state on the form in here since it's how the project was set up for us, but I removed it. That's why this is all commented out.
 
 class SmurfForm extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   // this.state = {
-  //   //   smurf: {
-  //   //     name: '',
-  //   //     age: '',
-  //   //     height: ''
-  //   //   }
-
-  //   // };
-  // }
-
-  // addSmurf = event => {
-  //   event.preventDefault();
-  //   // add code to create the smurf using the api
-  //   axios.post(`${this.props.serverURL}`, this.state.smurf)
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err));
-
-  //   // this.setState({
-  //   //   name: '',
-  //   //   age: '',
-  //   //   height: ''
-  //   // });
-  // }
-
-  // handleInputChange = e => {
-  //   this.setState({
-  //     smurf: {
-  //       ...this.state.smurf,
-  //       [e.target.name]: e.target.value
-  //     }
-  //   });
-  // };
   decideForm = e => {
     e.preventDefault();
     if (this.props.update) {
@@ -49,7 +10,6 @@ class SmurfForm extends Component {
     }
   };
   render() {
-    console.log(this.props);
     return (
       <div className="SmurfForm">
         <form onSubmit={this.decideForm}>

@@ -5,8 +5,8 @@ import { Route } from "react-router-dom";
 import "./App.css";
 import SmurfForm from "./components/SmurfForm";
 import Smurfs from "./components/Smurfs";
-// import SmurfProfile from './components/SmurfProfile';
 import NavBar from "./components/NavBar";
+import SmurfProfile from "./components/SmurfProfile";
 
 const serverURL = "http://localhost:3333/smurfs";
 
@@ -62,7 +62,12 @@ class App extends Component {
     event.preventDefault();
     axios
       .delete(`${serverURL}/${id}`)
-      .then(res => this.setState({ smurfs: res.data }))
+      .then(res => {
+        this.setState({
+          smurfs: res.data
+        });
+        this.props.history.push("/");
+      })
       .catch(err => console.log(err));
   };
 
@@ -88,6 +93,7 @@ class App extends Component {
           },
           update: false
         });
+        this.props.history.push("/");
       })
       .catch(err => console.log(err));
   };
@@ -111,24 +117,27 @@ class App extends Component {
           )}
         />
         <Route
+          exact
           path="/"
           render={props => (
             <Smurfs
               {...props}
               smurfs={this.state.smurfs}
-              deleteSmurf={this.deleteSmurf}
-              update={this.state.update}
-              showUpdateForm={this.showUpdateForm}
+              serverURL={serverURL}
             />
           )}
         />
-        {/* <Route path="/smurf/:id" render={props => 
-          <SmurfProfile 
-            smurfs={this.state.smurfs}
-            {...props}
-
-          />} 
-        /> */}
+        <Route
+          path="/smurf/:id"
+          render={props => (
+            <SmurfProfile
+              {...props}
+              serverURL={serverURL}
+              showUpdateForm={this.showUpdateForm}
+              deleteSmurf={this.deleteSmurf}
+            />
+          )}
+        />
       </div>
     );
   }

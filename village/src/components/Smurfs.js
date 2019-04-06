@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Smurf from "./Smurf";
-import SmurfProfile from "./SmurfProfile";
 
 class Smurfs extends Component {
   render() {
@@ -13,7 +12,7 @@ class Smurfs extends Component {
           {this.props.smurfs.map(smurf => {
             return (
               <div className="SmurfInfo" key={smurf.id}>
-                <Link to={`/${smurf.id}`}>
+                <Link to={`/smurf/${smurf.id}`}>
                   <Smurf
                     name={smurf.name}
                     id={smurf.id}
@@ -23,18 +22,6 @@ class Smurfs extends Component {
                     deleteSmurf={this.props.deleteSmurf}
                   />
                 </Link>
-
-                <Route
-                  path={`/${smurf.id}`}
-                  render={properties => (
-                    <SmurfProfile
-                      {...properties}
-                      smurf={smurf}
-                      deleteSmurf={this.props.deleteSmurf}
-                      showUpdateForm={this.props.showUpdateForm}
-                    />
-                  )}
-                />
               </div>
             );
           })}
