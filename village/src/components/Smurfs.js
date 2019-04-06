@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { Route, Link } from "react-router-dom";
 
-import Smurf from './Smurf';
+import Smurf from "./Smurf";
+import SmurfProfile from "./SmurfProfile";
 
 class Smurfs extends Component {
   render() {
@@ -10,13 +12,29 @@ class Smurfs extends Component {
         <ul>
           {this.props.smurfs.map(smurf => {
             return (
-              <Smurf
-                name={smurf.name}
-                id={smurf.id}
-                age={smurf.age}
-                height={smurf.height}
-                key={smurf.id}
-              />
+              <div>
+                <Link to={`/${smurf.id}`}>
+                  <Smurf
+                    name={smurf.name}
+                    id={smurf.id}
+                    age={smurf.age}
+                    height={smurf.height}
+                    key={smurf.id}
+                    deleteSmurf={this.props.deleteSmurf}
+                  />
+                </Link>
+
+                <Route
+                  path={`/${smurf.id}`}
+                  render={properties => (
+                    <SmurfProfile
+                      {...properties}
+                      smurf={smurf}
+                      deleteSmurf={this.props.deleteSmurf}
+                    />
+                  )}
+                />
+              </div>
             );
           })}
         </ul>
@@ -26,7 +44,7 @@ class Smurfs extends Component {
 }
 
 Smurf.defaultProps = {
- smurfs: [],
+  smurfs: []
 };
 
 export default Smurfs;

@@ -5,7 +5,7 @@ import { Route } from "react-router-dom";
 import "./App.css";
 import SmurfForm from "./components/SmurfForm";
 import Smurfs from "./components/Smurfs";
-import SmurfProfile from "./components/SmurfProfile";
+// import SmurfProfile from './components/SmurfProfile';
 import NavBar from "./components/NavBar";
 
 const serverURL = "http://localhost:3333/smurfs";
@@ -78,7 +78,6 @@ class App extends Component {
           )}
         />
         <Route
-          exact
           path="/"
           render={props => (
             <Smurfs
@@ -88,12 +87,13 @@ class App extends Component {
             />
           )}
         />
-        <Route
-          path="/smurf/:id"
-          render={props => (
-            <SmurfProfile smurfs={this.state.smurfs} {...props} />
-          )}
-        />
+        {/* <Route path="/smurf/:id" render={props => 
+          <SmurfProfile 
+            smurfs={this.state.smurfs}
+            {...props}
+
+          />} 
+        /> */}
       </div>
     );
   }
