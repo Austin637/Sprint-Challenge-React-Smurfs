@@ -19,7 +19,8 @@ class App extends Component {
         name: "",
         age: "",
         height: ""
-      }
+      },
+      update: false
     };
   }
 
@@ -39,8 +40,7 @@ class App extends Component {
     });
   };
 
-  addSmurf = event => {
-    event.preventDefault();
+  addSmurf = () => {
     axios
       .post(serverURL, this.state.smurf)
       .then(res => {
@@ -50,7 +50,8 @@ class App extends Component {
             name: "",
             age: "",
             height: ""
-          }
+          },
+          update: false
         });
         this.props.history.push("/");
       })
@@ -59,6 +60,35 @@ class App extends Component {
 
   deleteSmurf = (event, id) => {
     event.preventDefault();
+    axios
+      .delete(`${serverURL}/${id}`)
+      .then(res => this.setState({ smurfs: res.data }))
+      .catch(err => console.log(err));
+  };
+
+  showUpdateForm = (event, id) => {
+    event.preventDefault();
+    this.setState({
+      update: true,
+      smurf: this.state.smurfs.find(smurf => smurf.id === id)
+    });
+    this.props.history.push("/smurf-form");
+  };
+
+  updateSmurfInfo = () => {
+    axios
+      .put(`${serverURL}/${this.state.smurf.id}`, this.state.smurf)
+      .then(res => {
+        this.setState({
+          smurfs: res.data,
+          smurf: {
+            name: "",
+            age: "",
+            height: ""
+          }
+        });
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -74,6 +104,8 @@ class App extends Component {
               addSmurf={this.addSmurf}
               handleInputChange={this.handleInputChange}
               smurf={this.state.smurf}
+              update={this.state.update}
+              updateSmurfInfo={this.updateSmurfInfo}
             />
           )}
         />
@@ -84,6 +116,8 @@ class App extends Component {
               {...props}
               smurfs={this.state.smurfs}
               deleteSmurf={this.deleteSmurf}
+              update={this.state.update}
+              showUpdateForm={this.showUpdateForm}
             />
           )}
         />

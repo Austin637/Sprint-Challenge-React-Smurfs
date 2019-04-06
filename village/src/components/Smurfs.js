@@ -12,7 +12,7 @@ class Smurfs extends Component {
         <ul>
           {this.props.smurfs.map(smurf => {
             return (
-              <div>
+              <div key={smurf.id}>
                 <Link to={`/${smurf.id}`}>
                   <Smurf
                     name={smurf.name}
@@ -31,6 +31,7 @@ class Smurfs extends Component {
                       {...properties}
                       smurf={smurf}
                       deleteSmurf={this.props.deleteSmurf}
+                      showUpdateForm={this.props.showUpdateForm}
                     />
                   )}
                 />
