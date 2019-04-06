@@ -1,5 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from 'react-router-dom';
+
+// ---------------------------------
+
+//Note: I was trying to set up the Router Stretch problem (early on, which was a mistake) but I was having trouble with the async API calls -- at least I think that's what was the issue.
 
 class SmurfProfile extends React.Component {
   // constructor(props) {

@@ -85,7 +85,8 @@ class App extends Component {
             name: "",
             age: "",
             height: ""
-          }
+          },
+          update: false
         });
       })
       .catch(err => console.log(err));
