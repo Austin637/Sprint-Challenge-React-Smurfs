@@ -15,28 +15,23 @@ class SmurfProfile extends Component {
   }
 
   getSingleSmurf = id => {
-    axios
-      .get(`${this.props.serverURL}`)
-      .then(res => {
-        this.setState({
-          thisSmurf: res.data.find(item => `${item.id}` === id)
-        });
-      })
-      .catch(err => console.log(err));
+    axios.get(`${this.props.serverURL}`)
+        .then(res => {
+            this.setState({ thisSmurf: res.data.find(item => `${item.id}` === id)})
+        })
+        .catch(err => console.log(err));
   };
 
   render() {
     if (!this.state.thisSmurf) {
-      return <p>Getting information</p>;
+        return <p>Getting information</p>;
     }
     return (
       <div>
-        <h2>{this.state.thisSmurf.name}</h2>
+          <h2>{this.state.thisSmurf.name}</h2>
         <p>{this.state.thisSmurf.age} smurf years old</p>
         <p>{this.state.thisSmurf.height} tall</p>
-        <button
-          onClick={e => this.props.deleteSmurf(e, this.state.thisSmurf.id)}
-        >
+        <button onClick={e => this.props.deleteSmurf(e, this.state.thisSmurf.id)}>
           Delete
         </button>
         <button
