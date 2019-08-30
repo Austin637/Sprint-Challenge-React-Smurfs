@@ -65,9 +65,10 @@ class App extends Component {
       .then(res => {
         this.setState({
           smurfs: res.data
-        });
+        })
         this.props.history.push("/");
-      })
+        }
+      )
       .catch(err => console.log(err));
   };
 
@@ -130,7 +131,7 @@ class App extends Component {
         <Route
           path="/smurf/:id"
           render={props => (
-            <SmurfProfile
+            <SmurfProfile 
               {...props}
               serverURL={serverURL}
               showUpdateForm={this.showUpdateForm}
